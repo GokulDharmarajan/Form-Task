@@ -31,6 +31,10 @@ body {
   border: none !important;
 }
 
+th{
+  font-weight: 700;
+  font-size: 18px;
+}
 #update {
   display: none;
 }

@@ -12,13 +12,13 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <link rel="stylesheet" href="./index.css">
+<script src="./script.js"></script>
 
 <body>
   <div class="container">
     <div class="row mt-2">
       <div class="text-center mt-3 col-12 col-lg-5 col-md-5 col-xl-5 col-xxl-5 mx-auto">
-        <div class="card mx-auto p-3">
-
+        <div class="card mx-auto p-3 ">
           <i class="fa-regular fa-circle-user fa-3x mb-3"></i>
           <input type="text" placeholder="Name" id="cname" name="cname" class="form-control mt-2 mb-2" />
           <input type="email" placeholder="Email" id="email" name="email" class="form-control mt-2 mb-2" />
@@ -35,11 +35,10 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
   <div class="container">
-    <div class="card mt-3 mb-3 table-responsive text-center p-3 ">
+    <div class="card mt-3 mb-3 table-responsive text-center p-2 ">
       <table class=" table table-bordered mb-0">
         <thead>
           <tr>
@@ -47,113 +46,13 @@
             <th scope="col">Name</th>
             <th scope="col">Email</th>
             <th scope="col">Message</th>
-            <th scope="col">Tools</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody> </tbody>
       </table>
     </div>
   </div>
-
-
-  <script>
-    var datapass = "";
-    function insert() {
-      console.log("insert button clicked");
-      fetch("http://localhost:3000/insert", {
-        method: "POST",
-        body: JSON.stringify({
-          cname: document.getElementById("cname").value,
-          email: document.getElementById("email").value,
-          message: document.getElementById("message").value,
-        }),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      })
-        .then((response) => response.json())
-        .then((json) => console.log(json));
-
-    }
-    // GET METHOD
-
-
-    fetch("http://localhost:3000/")
-      .then((res) => res.json())
-      .then((user) => {
-        html = "";
-        user.forEach((e) => {
-          html += `<tr>
-                            <td>${e.id}</td>
-                            <td>${e.cname}</td>
-                            <td>${e.email}</td>
-                            <td>${e.message}</td>
-                            <td>
-                               <button onclick="edit('${e.id}','${e.cname}','${e.email}','${e.message}')" class="btn btn-success mx-auto mt-2 mb-2 btn-sm" > <i class="fa-solid fa-pen-to-square "></i></button> 
-                               <button onclick="deletedata('${e.id}')"class="btn btn-danger mx-auto mt-2 mb-2 btn-sm" > <i class="fa-solid fa-trash"></i></i></button> 
-                             </td>
-                              
-                     </tr>`;
-        });
-        console.log(html);
-        document.getElementsByTagName("tbody")[0].innerHTML = html;
-      })
-      .catch((err) => {
-        console.log("DDD", err);
-      });
-
-
-
-    // update
-    function updatedata() {
-      console.log("insert button clicked");
-      fetch("http://localhost:3000/update", {
-        method: "put",
-        body: JSON.stringify({
-          id: datapass,
-          cname: document.getElementById("cname").value,
-          email: document.getElementById("email").value,
-          message: document.getElementById("message").value,
-
-        }),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-
-      })
-        .then((response) => response.json())
-        .then((json) => console.log(json));
-    }
-
-    // Edit
-    function edit(id, cname, email, message) {
-      datapass = id;
-      document.getElementById("cname").value = cname;
-      document.getElementById("email").value = email;
-      document.getElementById("message").value = message;
-      document.getElementById("add").style = "display:none";
-      document.getElementById("update").style = "display:block";
-    }
-
-    // Delete
-
-    function deletedata(id, is_active) {
-      fetch("http://localhost:3000/delete", {
-
-        method: "put",
-        body: JSON.stringify({
-          id: id,
-          is_active: 0,
-        }),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      })
-        .then((response) => response.json())
-        .then((json) => console.log(json));
-
-    }
-  </script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
     integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
     crossorigin="anonymous"></script>
